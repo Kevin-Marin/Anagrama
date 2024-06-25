@@ -1,28 +1,23 @@
 let palavra;
-let letras;
-let anagrama;
+let anagramas = [];
 
-console.log("Digite uma palavra...");
+console.log("Digite uma palavra para fazermos os anagramas dela.");
 
-process.stdin.on("data", function(data) {
-    palavra = data.toString().trim().toLowerCase();
-    
-    if (palavra) {
-        letras = palavra.split('');
-        
-        // Embaralhamento do array de letras
-        for (let i = letras.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            // Troca de elementos
-            const temp = letras[i];
-            letras[i] = letras[j];
-            letras[j] = temp;
-        }
-        
-        anagrama = letras.join('');
-        
-        console.log("Anagrama de '" + palavra + "': " + anagrama);
-    } else {
-        console.log("Palavra inválida. Tente novamente.");
+process.stdin.on("data", function (data) {
+  palavra = data.toString().trim();
+
+  palavra = palavra.split("");
+
+  for (let i = 0; i < palavra.length; i++) {
+    for (let j = 0; j < palavra.length; j++) {
+      let aux = palavra[i];
+      palavra[i] = palavra[j];
+      palavra[j] = aux;
+
+      if (!anagramas.includes(palavra.join(""))) {
+        anagramas.push(palavra.join(""));
+        console.log(palavra.join(""));
+      }
     }
+  }
 });
